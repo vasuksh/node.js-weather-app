@@ -2,6 +2,9 @@ const request=require('request')
 
 const geocode=(address,callback)=>{
    
+    console.log(address)
+
+
  const url='https://api.mapbox.com/geocoding/v5/mapbox.places/'+encodeURIComponent(address)+'.json?access_token=pk.eyJ1IjoidmsyNCIsImEiOiJja2pjeDNqa2swejJnMnBxdjgwd3VlM256In0.IVwI7wfn8rhtCXyAhWoWgg&limit=1'
 
 request({url,json:true},(error,{body}={})=>

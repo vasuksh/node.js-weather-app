@@ -55,6 +55,28 @@ app.get('/weather',(req,res)=>{
         })
     }
 
+    const address=req.query.address
+
+    const ar=address.split(',',3)
+
+
+    if(ar[0]=='lat')
+    {
+
+        forecast(ar[1],ar[2],(error1,{forecastinfo,location})=>{
+            if(error1)
+            return res.send({
+                error:error1
+            })
+
+            res.send({
+                forecast:forecastinfo,
+                location,
+                address: req.query.address 
+            })
+        })
+    }
+    else{
     geocode(req.query.address,(error,{longitude,latitude,location}={})=>{
 
         if(error)
@@ -62,7 +84,7 @@ app.get('/weather',(req,res)=>{
             error
         })
 
-        forecast(latitude,longitude,(error1,forecastinfo)=>{
+        forecast(latitude,longitude,(error1,{forecastinfo})=>{
             if(error1)
             return res.send({
                 error:error1
@@ -76,7 +98,7 @@ app.get('/weather',(req,res)=>{
         })
 
     })
-    
+    }
 })
 
 

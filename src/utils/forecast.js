@@ -15,7 +15,10 @@ const forecast=(lat,long,callback)=>
         }
         else
         {
-            const data=body.current.weather_descriptions[0]+". It is currently "+ body.current.temperature+" degrees out. It feels like "+body.current.feelslike+" degrees out. "+"\n"+"Humidity is "+body.current.humidity + "%." 
+            const data={
+               forecastinfo:body.current.weather_descriptions[0]+". It is currently "+ body.current.temperature+" degrees out. It feels like "+body.current.feelslike+" degrees out. "+"\n"+"Humidity is "+body.current.humidity + "%." ,
+               location:body.location.name+','+body.location.region+','+body.location.country
+            }
             callback(undefined,data)
         }
     })

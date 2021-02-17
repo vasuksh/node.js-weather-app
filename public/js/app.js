@@ -25,3 +25,32 @@ fetch('/weather?address='+location).then((response)=>{
     })
 })
 })
+
+document.querySelector('#send-location').addEventListener('click',(e)=>{
+        
+        e.preventDefault()
+        if(!navigator.geolocation)
+        {
+            return alert('Geolocation is not supported by your browser.')
+        }
+        msg1.textContent="Loading..."
+        msg2.textContent=null
+        searchElement.value=""
+
+        navigator.geolocation.getCurrentPosition((position)=>{
+            
+           // console.log(position.coords.latitude + ','+position.coords.longitude)
+            fetch('/weather?address='+'lat'+','+position.coords.latitude+','+position.coords.longitude).then((response)=>{
+                response.json().then((data)=>{
+                    if(data.error)
+                    msg1.textContent=data.error
+                    else
+                    {
+                        msg1.textContent=data.location
+                        msg2.textContent=data.forecast
+                   }
+                })
+            })
+            
+        })
+})
